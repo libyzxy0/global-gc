@@ -12,7 +12,8 @@ export default defineNuxtConfig({
   ], 
   googleFonts: {
     families: {
-      Nunito: [300]
+      Nunito: [300], 
+      Quicksand: [400]
     }
   },
 })
