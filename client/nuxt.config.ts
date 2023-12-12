@@ -1,5 +1,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true }, 
+  ssr: true,
+  target: 'server',
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {
@@ -9,6 +11,8 @@ export default defineNuxtConfig({
   },
   modules: [
     "@nuxtjs/google-fonts",
+    "nuxt-vue3-google-signin", 
+    "",
   ], 
   googleFonts: {
     families: {
@@ -16,4 +20,12 @@ export default defineNuxtConfig({
       Quicksand: [400]
     }
   },
+  googleSignIn: {
+    clientId: '632928955162-mj5fl2a0541tfek65in8qd3sd120c0ot.apps.googleusercontent.com',
+  }, 
+  runtimeConfig: {
+    public: {
+      baseURL: "http://localhost:8080"
+    }
+  }
 })
