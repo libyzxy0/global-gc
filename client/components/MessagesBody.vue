@@ -16,15 +16,19 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, defineProps, computed } from 'vue';
-
 const props = defineProps({
   uid: String
 });
 
 const messages = ref([]);
 const socket = useSocket();
+
+(async function () {
+  const r = await useRetrieveMessage();
+  messages.value = r;
+})()
 
 onMounted(() => {
   socket.on('event', (event) => {
