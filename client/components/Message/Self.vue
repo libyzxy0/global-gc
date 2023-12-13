@@ -8,7 +8,7 @@
       </div>
       
       <div v-else class="w-auto h-auto mx-5">
-       <img :src="props.attachment" class="h-auto w-auto max-w-[16rem] max-h-[16rem] rounded-lg shadow-sm">
+       <img :src="props.attachment" class="h-auto w-auto max-w-[16rem] max-h-[16rem] rounded-lg shadow">
       </div>
       
       </div>

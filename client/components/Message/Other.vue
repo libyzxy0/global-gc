@@ -8,8 +8,8 @@
           <div v-if="!attachment" class="bg-gray-600 flex justify-center items-center w-auto rounded-full shadow mx-2 h-10">
         <h1 class="text-[15px] font-medium text-gray-900 p-4 text-white">{{ message }}</h1>
       </div>
-      <div v-else class="w-auto h-auto">
-       <img :src="attachment" class="h-auto w-auto max-w-[16rem] max-h-[16rem] rounded-lg shadow-sm">
+      <div v-else class="w-auto h-auto mx-2">
+       <img :src="attachment" class="h-auto w-auto max-w-[16rem] max-h-[16rem] rounded-lg shadow">
       </div>
       
         </div>
