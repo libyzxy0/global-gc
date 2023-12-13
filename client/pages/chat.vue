@@ -14,7 +14,6 @@
     if(!success) {
       window.location.href = '/';
     } else {
-      console.log("Page route", data);
       name.value = data.name;
       profile.value = data.profileImage;
       short_name.value = data.given_name;

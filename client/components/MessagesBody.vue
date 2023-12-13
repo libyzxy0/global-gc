@@ -5,12 +5,14 @@
         v-if="message.user.id === props.uid"
         :message="message.message && message.message.body"
         :user="message.user && message.user.short_name"
+        :attachment="message.message && message.message.attachments[0]"
       />
       <MessageOther
         v-else
         :message="message.message && message.message.body"
         :user="message.user && message.user.short_name"
         :profile_pic="message?.user.profile_pic"
+        :attachment="message.message && message.message.attachments[0]"
       />
     </template>
   </div>
@@ -32,6 +34,7 @@ const socket = useSocket();
 
 onMounted(() => {
   socket.on('event', (event) => {
+    console.log(event)
     if (event.type === 'message') {
       messages.value.push(event);
     }

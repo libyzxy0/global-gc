@@ -53,7 +53,6 @@ async function verifyGoogleAccessToken(access_token) {
 export default async function useGoogleAuth(token) {
   try {
     const response = await verifyGoogleAccessToken(token);
-    console.log("Auth", response)
     return {
       success: response.success, 
       data: response.data

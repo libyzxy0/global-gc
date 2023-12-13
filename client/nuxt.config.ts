@@ -25,7 +25,7 @@ export default defineNuxtConfig({
   }, 
   runtimeConfig: {
     public: {
-      baseURL: "https://global-gc.libyzxy0.repl.co" //"http://localhost:8080"
+      baseURL: "https://global-gc.libyzxy0.repl.co" 
     }
   }
 })
