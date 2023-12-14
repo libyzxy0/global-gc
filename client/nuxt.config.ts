@@ -1,5 +1,13 @@
 export default defineNuxtConfig({
   devtools: { enabled: true }, 
+  head: {
+    meta: [
+      {
+        httpEquiv: 'Content-Security-Policy',
+        content: 'upgrade-insecure-requests',
+      },
+    ],
+  },
   ssr: true,
   target: 'server',
   css: ['~/assets/css/main.css'],
