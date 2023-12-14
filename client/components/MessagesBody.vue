@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps, computed } from 'vue';
+
 const props = defineProps({
   uid: String
 });
@@ -34,7 +34,6 @@ const socket = useSocket();
 
 onMounted(() => {
   socket.on('event', (event) => {
-    console.log(event)
     if (event.type === 'message') {
       messages.value.push(event);
     }
