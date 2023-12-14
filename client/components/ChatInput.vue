@@ -1,7 +1,8 @@
 <template>
   <div class="fixed flex flex-row bottom-0 w-full h-14 border-2 border-t borser-gray-200 bg-white">
     <div class="flex flex-row justify-between items-center h-full w-auto mx-2">
-      <input type="file" ref="selectFile" style="display: none" @change="handleFileChange" />
+      <input type="file" accept="image/png, image/gif, image/jpeg" ref="selectFile" style="display: none" @change="handleFileChange" />
+
       <IconsChevronRight
         :class="!hideActions ? 'opacity-0 hidden' : 'opacity-100 transition-opacity'"
         @click="showActions"
@@ -17,12 +18,12 @@
       <IconsImage
         @click="uploadImage"
         class="mx-2 opacity-0 transition-opacity"
-        :class="[(hideActions ? 'hidden' : 'block opacity-100'), (attachment.length > 0 ? 'stroke-green-400' : '')]"
+        :class="[(hideActions ? 'hidden' : 'block opacity-100'), (attachment.length > 0 && attachment[0].type == 'image' ? 'stroke-emerald-400' : '')]"
         :loading="waitImage ? 'y' : ''"
       />
       <IconsMicrophone
         class="mx-1 opacity-0 transition-opacity"
-        :class="hideActions ? 'hidden' : 'block opacity-100'"
+        :class="[(hideActions ? 'hidden' : 'block opacity-100'), (isRecording ? 'stroke-purple-500' : '')]"
       />
     </div>
 
@@ -48,12 +49,14 @@ const props = defineProps({
   id: String,
   profile_pic: String,
 });
-
 const message = ref('');
-const waitImage = ref(false);
-const attachment = ref([]);
-const hideActions = ref(false);
 const socket = useSocket();
+
+const hideActions = ref(false);
+const selectFile = ref(null);
+const waitImage = ref(false);
+
+const attachment = ref([]);
 
 // Hide action buttons if message exists
 watch(message, (newValue) => {
@@ -82,11 +85,9 @@ const showActions = () => {
   hideActions.value = false;
 };
 
-const selectFile = ref(null);
-
 const uploadImage = () => {
   selectFile.value.click();
-};
+}
 
 const handleFileChange = async (event) => {
   const file = event.target.files[0];
@@ -94,7 +95,10 @@ const handleFileChange = async (event) => {
   waitImage.value = true;
   const { success, data } = await useFileStorage(file);
   if(success && !!data) {
-    attachment.value.push(`https://file-api.libyzxy0.repl.co/get/${data}`);
+    attachment.value.push({
+      type: "image", 
+      url: `https://file-api.libyzxy0.repl.co/get/${data}`
+    });
   } else {
     alert('An error occurred while uploading the file')
   }
