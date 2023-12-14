@@ -7,7 +7,7 @@ export default async function useFileStorage(file) {
       const headers = {
         'Content-Type': 'multipart/form-data',
       };
-      const response = await axios.post('http://file-api.libyzxy0.repl.co/upload', formData, { headers: headers});
+      const response = await axios.post('https://file-api.libyzxy0.repl.co/upload', formData, { headers: headers});
       return { success: true, data: response.data };
     } else {
       return { success: false, data: {} };
