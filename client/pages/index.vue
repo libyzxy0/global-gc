@@ -38,19 +38,21 @@ import {
   type AuthCodeFlowSuccessResponse,
   type AuthCodeFlowErrorResponse,
 } from "vue3-google-signin";
-  let token = useCookie("token");
+import { useRouter } from 'vue-router';
+const router = useRouter()
+
+const token = useCookie('token');
   (async function() {
-    const { success } = await useGoogleAuth(token.value);
-    if(success) {
-      window.location.href = '/chat';
-    }
+    //Message count
     const messages = await useRetrieveMessage();
     msgs.value = messages.length;
   })()
 
 const handleOnSuccess = (response: AuthCodeFlowSuccessResponse) => {
   token.value = response.access_token;
-  window.location.href = '/chat';
+  setTimeout(() => {
+    router.go()
+  }, 500)
 };
 
 const handleOnError = (errorResponse: AuthCodeFlowErrorResponse) => {

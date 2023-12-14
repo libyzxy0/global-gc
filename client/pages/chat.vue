@@ -4,6 +4,8 @@
   <ChatInput :profile_pic="profile" :short_name="short_name" :id="id" />
 </template>
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+const router = useRouter()
   useSeoMeta({
   title: 'Global GC - Chatting, Laughing, and Connecting as One Big Happy Community!',
   ogTitle: 'Global GC - Chatting, Laughing, and Connecting as One Big Happy Community!',
@@ -19,13 +21,13 @@
   let id = ref("");
   (async function() {
     const { success, data } = await useGoogleAuth(token.value);
-    if(!success) {
-      window.location.href = '/';
-    } else {
+    if(success) {
       name.value = data.name;
       profile.value = data.profileImage;
       short_name.value = data.given_name;
       id.value = data.sub;
+    } else {
+      router.push('/');
     }
   })();
 </script>
