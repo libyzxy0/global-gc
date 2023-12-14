@@ -93,8 +93,11 @@ const handleFileChange = async (event) => {
   const { name, type, size } = file;
   waitImage.value = true;
   const { success, data } = await useFileStorage(file);
-  attachment.value.push(`https://file-api.libyzxy0.repl.co/get/${name}`);
-  console.log(attachment.value)
+  if(success && !!data) {
+    attachment.value.push(`https://file-api.libyzxy0.repl.co/get/${data}`);
+  } else {
+    alert('An error occurred while uploading the file')
+  }
   waitImage.value = false;
 };
 </script>

@@ -3,11 +3,12 @@ import cors from 'cors';
 import { createServer } from 'http';
 import 'dotenv/config';
 import { MongoClient } from 'mongodb';
-
-const client = new MongoClient(process.env.MONGO_URI);
+const uri = process.env.MONGO_URI;
+const client = new MongoClient(uri);
 
 (async function() {
   try {
+    console.log('Connecting to database...')
     await client.connect();
     console.log('Connected to MongoDB');
   } catch (error) {
@@ -37,6 +38,40 @@ async function readData(collection) {
   }
 }
 
+async function updateData(collection, dataID, newData) {
+  try {
+    const database = client.db(process.env.DB_NAME);
+    const col = database.collection(collection);
+    const result = await col.findOneAndUpdate({ _id: dataID }, { $set: newData });
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+async function deleteData(collection, dataID) {
+    try {
+      const database = client.db(process.env.DB_NAME);
+      const col = database.collection(collection);
+      const result = await col.deleteOne({ _id: dataID });
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+}
+/*
+(async function () {
+  try {
+  let data = await readData('messages');
+  for(let i = 0;i < data.length;i++) {
+    let r = await deleteData('messages', data._id);
+    console.log(r)
+  }
+  } catch (err) {
+    console.log("error:", err)
+  }
+})();
+*/
 const app = express();
 const port = 8080;
 

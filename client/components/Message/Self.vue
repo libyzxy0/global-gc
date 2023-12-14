@@ -8,7 +8,7 @@
       </div>
       
       <div v-else class="w-auto h-auto mx-5">
-       <img :src="props.attachment" class="h-auto w-auto max-w-[16rem] max-h-[16rem] rounded-lg shadow">
+       <img :src="props.attachment" class="h-auto w-auto lmax-w-[z16rem] max-h-[16rem] rounded-lg" @error="(e) => e.target.src = 'https://http.cat/404'">
       </div>
       
       </div>
